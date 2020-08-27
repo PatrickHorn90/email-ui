@@ -1,26 +1,19 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState, useEffect } from "react";
+import ContactsContainer from "./Component/Container";
 import "./App.css";
 
 const App = () => {
-  return (
-    <div className="App">
-      <h1>ALLO POPPET</h1>
-      <Button variant="contained">Default</Button>
-      <Button variant="contained" color="primary">
-        Primary
-      </Button>
-      <Button variant="contained" color="secondary">
-        Secondary
-      </Button>
-      <Button variant="contained" disabled>
-        Disabled
-      </Button>
-      <Button variant="contained" color="primary" href="#contained-buttons">
-        Link
-      </Button>
-    </div>
-  );
-};
+  const [contacts, setContacts] = useState([]);
 
+  async function fetchData() {
+    const res = await fetch("https://swapi.co/api/planets/4/");
+    res.json().then((results) => setContacts(results));
+  }
+
+  useEffect(() => {
+    fetchData();
+  });
+
+  return <ContactsContainer contacts={contacts} />;
+};
 export default App;
