@@ -14,6 +14,6 @@ const App = () => {
     fetchData();
   });
 
-  return <ContactsContainer contacts={contacts} />;
+  return <ContactsContainer contacts={contacts.results} />;
 };
 export default App;
