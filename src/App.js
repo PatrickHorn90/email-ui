@@ -7,7 +7,7 @@ const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   async function fetchData() {
-    const res = await fetch("https://swapi.co/api/planets/4/");
+    const res = await fetch("https://randomuser.me/api/?results=30");
     res.json().then((results) => setContacts(results), setIsLoaded(true));
   }
 
