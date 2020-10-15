@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
@@ -6,9 +6,33 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
+import PersonAddIcon from "@material-ui/icons/PersonAdd";
+import { makeStyles } from "@material-ui/core/styles";
 
-export default function FormDialog() {
-  const [open, setOpen] = React.useState(false);
+const useStyles = makeStyles(() => ({
+  addContactBtn: {
+    color: "#fff",
+    padding: "10px",
+  },
+  container: {
+    marginTop: "64px",
+    padding: "40px",
+    backgroundColor: "#c2d7f3",
+  },
+  table: {
+    minWidth: 650,
+  },
+  contactImage: {
+    borderRadius: "50%",
+  },
+  contactRow: {
+    verticalAlign: "middle",
+  },
+}));
+
+export default function AddContact() {
+  const { open, setOpen } = useState(false);
+  const classes = useStyles();
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -20,8 +44,14 @@ export default function FormDialog() {
 
   return (
     <div>
-      <Button variant="outlined" color="primary" onClick={handleClickOpen}>
-        Open form dialog
+      <Button
+        className={classes.addContactBtn}
+        color="primary"
+        variant="outlined"
+        onClick={handleClickOpen}
+      >
+        <PersonAddIcon />
+        Add Contact
       </Button>
       <Dialog
         open={open}
