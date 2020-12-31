@@ -1,12 +1,14 @@
-import React, { useState, useEffect } from "react";
+import "./App.css";
+
+import React, { useEffect, useState } from "react";
+import { fade, makeStyles } from "@material-ui/core/styles";
+
+import AddContact from "./Component/AddContact";
 import AppBar from "@material-ui/core/AppBar";
 import ContactList from "./Component/ContactList";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
-import AddContact from "./Component/AddContact";
 import Toolbar from "@material-ui/core/Toolbar";
-import { makeStyles, fade } from "@material-ui/core/styles";
-import "./App.css";
 import axios from "axios";
 
 const useStyles = makeStyles((theme) => ({
@@ -60,11 +62,11 @@ const App = () => {
   const classes = useStyles();
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState("");
-  console.log(contacts);
+  console.log(contacts); // delete
 
   const handleSearchChange = (e) => {
     setFilter(e.target.value.toLowerCase());
-    console.log(filter);
+    console.log(filter); //delete
   };
 
   useEffect(() => {
