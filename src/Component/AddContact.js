@@ -19,9 +19,7 @@ const useStyles = makeStyles((theme) => ({
     color: "#fff",
     padding: "10px",
   },
-  ageSelector: {
-    border: "1px black solid",
-    display: "flex",
+  ageInput: {
     width: "20%",
   },
   closeModal: {
@@ -31,6 +29,9 @@ const useStyles = makeStyles((theme) => ({
   formContainer: {
     display: "flex",
     flexDirection: "column",
+  },
+  genderLabel: {
+    marginBottom: "10px",
   },
   inputs: {
     display: "flex",
@@ -147,7 +148,9 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
           helperText={lastNameError ? "Entry is invalid." : ""}
         />
         <FormControl className={classes.genderInput} component="fieldset">
-          <FormLabel component="legend">Gender</FormLabel>
+          <FormLabel className={classes.genderLabel} component="legend">
+            Gender
+          </FormLabel>
           <RadioGroup
             aria-label="Gender"
             value={gender}
@@ -162,12 +165,12 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
           </RadioGroup>
         </FormControl>
         <TextField
+          className={classes.ageInput}
           error={ageError}
           margin="dense"
           onChange={validateAge}
           value={age}
           label="Age"
-          fullWidth
           helperText={ageError ? "Please enter a number" : ""}
         />
       </DialogContent>
