@@ -1,5 +1,6 @@
 import React from "react";
 import { CircularProgress, makeStyles } from "@material-ui/core";
+import DeleteIcon from "@material-ui/icons/Delete";
 import Table from "@material-ui/core/Table";
 import TableBody from "@material-ui/core/TableBody";
 import TableCell from "@material-ui/core/TableCell";
@@ -10,12 +11,16 @@ import Paper from "@material-ui/core/Paper";
 
 const useStyles = makeStyles(() => ({
   container: {
+    display: "flex",
     marginTop: "64px",
-    padding: "40px",
+    padding: "40px 380px",
     backgroundColor: "#c2d7f3",
   },
   table: {
     minWidth: 650,
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
   },
   contactImage: {
     borderRadius: "50%",
@@ -23,11 +28,66 @@ const useStyles = makeStyles(() => ({
   contactRow: {
     verticalAlign: "middle",
   },
+  deleteBtn: {
+    cursor: "pointer",
+    color: "rgb(70 84 103 / 87%)",
+    "&:hover": {
+      color: "red",
+    },
+  },
+  noMatches: {
+    color: "black",
+    fontFamily: "Anton",
+    fontSize: "40px",
+    marginTop: "40px",
+    marginBottom: "40px",
+  },
 }));
 
-const ContactList = (props) => {
+const ContactList = ({ contacts, filter, setContacts }) => {
   const classes = useStyles();
-  const { contacts, filter } = props;
+
+  const renderContacts = () => {
+    const filteredContacts = contacts
+      .filter(({ name: { first, last } }) => {
+        const fullname = `${first} ${last}`;
+        return fullname.toLowerCase().includes(filter);
+      })
+      .map((contact) => {
+        const { picture, name, dob, gender } = contact;
+        return (
+          <TableRow key={contact.login.uuid}>
+            <TableCell align="right">
+              <img
+                className={classes.contactImage}
+                src={picture.thumbnail}
+                alt="Contact pic"
+              />
+            </TableCell>
+            <TableCell scope="row">{name.first}</TableCell>
+            <TableCell scope="row">{name.last}</TableCell>
+            <TableCell align="left">{gender}</TableCell>
+            <TableCell align="right">{dob.age}</TableCell>
+            <TableCell>
+              <DeleteIcon
+                className={classes.deleteBtn}
+                onClick={() => deleteContact(contact.login.uuid)}
+              ></DeleteIcon>
+            </TableCell>
+          </TableRow>
+        );
+      });
+    if (filteredContacts.length === 0)
+      return <div className={classes.noMatches}>No Matches Found</div>;
+    return filteredContacts;
+  };
+
+  const deleteContact = (id) => {
+    const updatedContacts = contacts.filter(
+      (contact) => contact.login.uuid !== id
+    );
+    setContacts(updatedContacts);
+  };
 
   if (contacts) {
     return (
@@ -42,37 +102,10 @@ const ContactList = (props) => {
                   <TableCell>Last Name</TableCell>
                   <TableCell align="right">Gender</TableCell>
                   <TableCell align="right">Age</TableCell>
+                  <TableCell></TableCell>
                 </TableRow>
               </TableHead>
-              <TableBody>
-                {contacts
-                  .filter(({ name: { first } }) =>
-                    first.toLowerCase().includes(filter)
-                  )
-                  .map((contact) => {
-                    const { login, picture, name, dob, gender } = contact;
-                    return (
-                      <TableRow key={login.uuid}>
-                        {/* <Checkbox /> */}
-                        <TableCell align="right">
-                          <img
-                            className={classes.contactImage}
-                            src={picture.thumbnail}
-                            alt="Contact pic"
-                          />
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {name.first}
-                        </TableCell>
-                        <TableCell component="th" scope="row">
-                          {name.last}
-                        </TableCell>
-                        <TableCell align="right">{gender}</TableCell>
-                        <TableCell align="right">{dob.age}</TableCell>
-                      </TableRow>
-                    );
-                  })}
-              </TableBody>
+              <TableBody>{renderContacts()}</TableBody>
             </Table>
           </TableContainer>
         </div>

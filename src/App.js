@@ -60,6 +60,7 @@ const App = () => {
   const classes = useStyles();
   const [contacts, setContacts] = useState([]);
   const [filter, setFilter] = useState("");
+  console.log(contacts);
 
   const handleSearchChange = (e) => {
     setFilter(e.target.value.toLowerCase());
@@ -98,7 +99,11 @@ const App = () => {
           <AddContact contacts={contacts} setContacts={setContacts} />
         </Toolbar>
       </AppBar>
-      <ContactList contacts={contacts} filter={filter} />
+      <ContactList
+        contacts={contacts}
+        setContacts={setContacts}
+        filter={filter}
+      />
     </>
   );
 };
