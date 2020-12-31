@@ -13,7 +13,7 @@ const useStyles = makeStyles(() => ({
   container: {
     display: "flex",
     marginTop: "64px",
-    padding: "40px 380px",
+    padding: "40px 400px",
     backgroundColor: "#c2d7f3",
   },
   table: {
