@@ -10,7 +10,7 @@ import ReactDOM from "react-dom";
 /*
   Implement react router in your app: https://reactrouter.com/web/example/basic
   The general idea is that if the user lands on the home page: localhost:3000/ 
-  then display App(rename it to Home)
+  then display the ContactList.
   If the user lands on localhost:3000/someUserId, then display a basic details page
   someUserId will be handled using url parameters: https://reactrouter.com/web/example/url-params
 
