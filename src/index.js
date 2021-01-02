@@ -14,19 +14,25 @@ import ReactDOM from "react-dom";
   If the user lands on localhost:3000/someUserId, then display a basic details page
   someUserId will be handled using url parameters: https://reactrouter.com/web/example/url-params
 
-  Bc of the limitations of the api(not being able to search for a specific user),
-  we will need to lift the user data up a level and then feed the contacts into the home page as well as the details page.
-  If the user is on the details page, we will use the url param to determine which user to search for in our contacts array.
-  Example localhost:3000/ahiu398a498 <- find a user that matches this id
+  Due to the limitations of the api(not being able to search for a specific user), we will need to feed contacts
+  into ContactDetails and then search for the user with the matching uuid(user.login.uuid) that we will provide 
+  in the url param when clicking on the users first name
 
-  The overall structure of your app will look like this:
-  App -- fetches for contacts
-    Router
+  The overall structure of your app should look like this:
+  Router
+    App
       Switch
         Route
-          Home  -- display contact list, add contact, etc
+          ContactList
+            wrap each first name text with a Link tag that provides the uuid
         Route
-          Details -- searches for a user within our contacts that matches the url param(being the user id) and displays details
+          ContactDetails
+
+  Since we only want the content to change within the white container, the filter and add contact
+  button need to live inside of the contact list.
+  Imagine if we were on the details page, and still had the ability to filter and add people. Doesnt make
+  much sense from a UX perspective. So the header should only contain the app title, something that doesn't change as
+  you move to differnt pages of the app.
 */
 
 ReactDOM.render(
