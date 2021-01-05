@@ -1,18 +1,19 @@
 import React, { useState } from "react";
+
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import FormControl from "@material-ui/core/FormControl";
-import FormLabel from "@material-ui/core/FormLabel";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
+import FormLabel from "@material-ui/core/FormLabel";
 import PersonAddIcon from "@material-ui/icons/PersonAdd";
 import Radio from "@material-ui/core/Radio";
 import RadioGroup from "@material-ui/core/RadioGroup";
-import { v4 as uuidv4 } from "uuid";
+import TextField from "@material-ui/core/TextField";
 import { makeStyles } from "@material-ui/core/styles";
+import { v4 as uuidv4 } from "uuid";
 
 const useStyles = makeStyles((theme) => ({
   addContactBtn: {
@@ -55,6 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
+// rename this to AddContactDialog
 function AddContactForm({ closeModal, open, setContacts, contacts }) {
   const [first, setFirstName] = useState("");
   const [last, setLastName] = useState("");
@@ -63,6 +65,7 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
   const [ageError, setAgeError] = useState(false);
+  // delete this
   const [disableSubmit, setDisableSubmit] = useState(false);
   const classes = useStyles();
 
@@ -136,6 +139,7 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
           value={first}
           label="First Name"
           fullWidth
+          // change logic to firstNameError && "Entry is invalid"
           helperText={firstNameError ? "Entry is invalid." : ""}
         />
         <TextField
@@ -177,6 +181,12 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
       <DialogActions>
         <Button
           className={classes.submitBtn}
+          /*
+            The logic on disable submit should be:
+            firstNameError || lastNameError || ageError
+            The problem with your current solution is that if you have multiple errors
+            and one of them gets fixed, then the submit button becomes enabled.
+          */
           disabled={disableSubmit}
           onClick={handleSubmitContact}
           color="primary"
