@@ -1,7 +1,5 @@
 import "./index.css";
-
 import * as serviceWorker from "./serviceWorker";
-
 import App from "./App";
 import CssBaseline from "@material-ui/core/CssBaseline";
 import React from "react";

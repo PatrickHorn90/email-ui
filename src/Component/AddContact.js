@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -17,7 +16,8 @@ import { v4 as uuidv4 } from "uuid";
 
 const useStyles = makeStyles((theme) => ({
   addContactBtn: {
-    color: "#fff",
+    backgroundColor: "#06166d",
+    color: "white",
     padding: "10px",
   },
   ageInput: {
@@ -56,8 +56,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-// rename this to AddContactDialog
-function AddContactForm({ closeModal, open, setContacts, contacts }) {
+function AddContactDialog({ closeModal, open, setContacts, contacts }) {
   const [first, setFirstName] = useState("");
   const [last, setLastName] = useState("");
   const [gender, setGender] = useState("");
@@ -65,8 +64,6 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
   const [firstNameError, setFirstNameError] = useState(false);
   const [lastNameError, setLastNameError] = useState(false);
   const [ageError, setAgeError] = useState(false);
-  // delete this
-  const [disableSubmit, setDisableSubmit] = useState(false);
   const classes = useStyles();
 
   const handleSubmitContact = () => {
@@ -87,11 +84,9 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
     const isValid = /^[a-zA-Z]+$/g.test(value);
     if (!isValid) {
       setFirstNameError(true);
-      setDisableSubmit(true);
     }
     if (isValid || !value) {
       setFirstNameError(false);
-      setDisableSubmit(false);
     }
     setFirstName(value);
   };
@@ -100,11 +95,9 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
     const isValid = /^[a-zA-Z]+$/g.test(value);
     if (!isValid) {
       setLastNameError(true);
-      setDisableSubmit(true);
     }
     if (isValid || !value) {
       setLastNameError(false);
-      setDisableSubmit(false);
     }
     setLastName(value);
   };
@@ -113,11 +106,9 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
     const isValid = /^[0-9]*$/g.test(value);
     if (!isValid) {
       setAgeError(true);
-      setDisableSubmit(true);
     }
     if (isValid || !value) {
       setAgeError(false);
-      setDisableSubmit(false);
     }
     setAge(value);
   };
@@ -139,8 +130,7 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
           value={first}
           label="First Name"
           fullWidth
-          // change logic to firstNameError && "Entry is invalid"
-          helperText={firstNameError ? "Entry is invalid." : ""}
+          helperText={firstNameError && "Entry is invalid."}
         />
         <TextField
           error={lastNameError}
@@ -149,7 +139,7 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
           value={last}
           label="Last Name"
           fullWidth
-          helperText={lastNameError ? "Entry is invalid." : ""}
+          helperText={lastNameError && "Entry is invalid."}
         />
         <FormControl className={classes.genderInput} component="fieldset">
           <FormLabel className={classes.genderLabel} component="legend">
@@ -175,19 +165,13 @@ function AddContactForm({ closeModal, open, setContacts, contacts }) {
           onChange={validateAge}
           value={age}
           label="Age"
-          helperText={ageError ? "Please enter a number" : ""}
+          helperText={ageError && "Please enter a number"}
         />
       </DialogContent>
       <DialogActions>
         <Button
           className={classes.submitBtn}
-          /*
-            The logic on disable submit should be:
-            firstNameError || lastNameError || ageError
-            The problem with your current solution is that if you have multiple errors
-            and one of them gets fixed, then the submit button becomes enabled.
-          */
-          disabled={disableSubmit}
+          disabled={firstNameError || lastNameError || ageError}
           onClick={handleSubmitContact}
           color="primary"
         >
@@ -213,7 +197,7 @@ export default function AddContact({ contacts, setContacts }) {
         <PersonAddIcon />
         Add Contact
       </Button>
-      <AddContactForm
+      <AddContactDialog
         open={open}
         closeModal={() => setOpen(false)}
         contacts={contacts}
