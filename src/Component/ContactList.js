@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import { fade, CircularProgress, makeStyles } from "@material-ui/core";
 import AddContact from "./AddContact";
 import DeleteIcon from "@material-ui/icons/Delete";
@@ -107,7 +108,9 @@ const ContactList = ({ contacts, setContacts }) => {
                 alt="Contact pic"
               />
             </TableCell>
-            <TableCell>{name.first}</TableCell>
+            <TableCell>
+              <Link to="/details">{name.first}</Link>
+            </TableCell>
             <TableCell>{name.last}</TableCell>
             <TableCell>{gender}</TableCell>
             <TableCell>{dob.age}</TableCell>
