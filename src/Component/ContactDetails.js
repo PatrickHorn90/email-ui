@@ -4,7 +4,8 @@ import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   detailsContainer: {
-    marginTop: "0px",
+    marginTop: "120px",
+    textAlign: "center",
   },
 }));
 
@@ -13,12 +14,7 @@ const ContactDetails = (contacts) => {
   let { uuid } = useParams();
   return (
     <div className={classes.detailsContainer}>
-      <h1>Contact Details Page for User#{uuid}</h1>
-      <h1>Contact Details Page for User#{uuid}</h1>
-      <h1>Contact Details Page for User#{uuid}</h1>
-      <h1>Contact Details Page for User#{uuid}</h1>
-      <h1>Contact Details Page for User#{uuid}</h1>
-      <h1>Contact Details Page for User#{uuid}</h1>
+      <h1>Contact Details Page for User: {uuid}</h1>
     </div>
   );
 };
