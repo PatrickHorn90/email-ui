@@ -56,9 +56,10 @@ const App = () => {
             <ContactList contacts={contacts} setContacts={setContacts} />
           </div>
         </Route>
-        <Route path="/details">
-          <ContactDetails contacts={contacts} />
-        </Route>
+        <Route
+          path="/:uuid"
+          children={<ContactDetails contacts={contacts} />}
+        />
       </Switch>
     </Router>
   );

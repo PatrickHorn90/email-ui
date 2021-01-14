@@ -109,7 +109,7 @@ const ContactList = ({ contacts, setContacts }) => {
               />
             </TableCell>
             <TableCell>
-              <Link to="/details">{name.first}</Link>
+              <Link to={`${name.first} ${name.last}`}>{name.first}</Link>
             </TableCell>
             <TableCell>{name.last}</TableCell>
             <TableCell>{gender}</TableCell>

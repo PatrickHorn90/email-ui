@@ -1,5 +1,6 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
+import { useParams } from "react-router-dom";
 
 const useStyles = makeStyles(() => ({
   detailsContainer: {
@@ -7,11 +8,17 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
-const ContactDetails = ({ contacts }) => {
+const ContactDetails = (contacts) => {
   const classes = useStyles();
+  let { uuid } = useParams();
   return (
     <div className={classes.detailsContainer}>
-      <h1>Contact Details Page</h1>
+      <h1>Contact Details Page for User#{uuid}</h1>
+      <h1>Contact Details Page for User#{uuid}</h1>
+      <h1>Contact Details Page for User#{uuid}</h1>
+      <h1>Contact Details Page for User#{uuid}</h1>
+      <h1>Contact Details Page for User#{uuid}</h1>
+      <h1>Contact Details Page for User#{uuid}</h1>
     </div>
   );
 };
